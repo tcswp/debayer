@@ -1,6 +1,19 @@
-# debayer
-Demosaicing project for EC520
-
+## Intro
 Each pixel in a color image has a red, green, and a blue component. A camera can capture these RGB values for each pixel using beamsplitters to separate the light into red, green, and blue components while capturing the color intensities with 3 different CCDs as in the case with 3CCD, or by using layered photodiodes that are each sensitive to only one of the red, green, or blue components as in the Foveon X3 sensor. Many high-end cameras will employ one of those technologies, but the rest of the cameras use a single CCD sensor in conjunction with a color filter array (CFA). CCD sensors are not sensitive to specific wavelengths and will therefore require a filter to obtain the intensity of the wavelength of interest. There are many different CFA patterns that can be used, the most common of which is the Bayer filter, which has twice as many green filters as blue and red, mimicking the human eye response. Since each element of the CCD will capture the intensity of only one wavelength, we need a way to determine the two missing color values for each element. This process is called demosaicing. Basic methods for demosaicing involve using an interpolation filter, while more sophisticated methods will take advantage of spatial and spectral correlations of the pixels. When a picture is taken by a digital camera, a raw image file is produced, and a demosaicing algorithm stored in the camera’s firmware will process the image.
 
-For our project, we will implement a basic demosaicing algorithm called bilinear interpolation, as well as two more complex methods: spline interpolation and a linear minimum mean square error (LMMSE) based method. Then we will apply the algorithms to a set of raw images and compare the results of each method.
+For our project, we will implement the following algorithms: edge-directed interpolation, homogeneity-directed interpolation, and a linear minimum mean square error (LMMSE) based method. Each of these are what are called heuristic approaches. These approaches make certain assumptions about an image to simplify the filtering operations, as opposed to other approaches that involve solving optimization problems. Each approach is also adaptive; each method has control flow statements that direct the interpolation process. The original images we will use are Kodak PhotoCD images, high quality digital images that were scanned from film photographs, which are considered a benchmark in demosaicing images. These images did not need to be interpolated as the camera that captured them did not have a CFA. We will first need to downsample these images to a produce a Bayer filtered image, and then apply the demosaicing algorithms. The final results will be compared to the original images using metrics such as MSE, PSNR, and SSIM.
+
+## Methods
+
+The edge-directed method we will use first interpolates each of the missing green pixels. The vertical and horizontal luminance gradients are determined by the neighboring green pixel values. The size of the vertical or horizontal gradient tells us whether there is an edge in either direction. If there is a large gradient horizontally for example, then we infer there is a vertical edge, and therefore we interpolate based on the vertical neighbors. Once the green channel has been filled in, the second part of the method estimates the R and B values. It is assumed that there is a interchannel correlation such that the ratio or difference in two colors within in object is roughly constant. This constant-hue based approach will allow us to interpolate the R and B colors. 
+
+In homogeneity-directed interpolation, two separate images are produced by interpolating along either direction, i.e., horizontally and vertically. Each image is converted to a perceptually uniform color space such as CIELAB. Within this space, the pixels at each location in both copies are compared with their neighbors. A decision is then made to determine which of the two has greater local homogeneity.
+
+The linear minimum mean square error method is based on directional filtering...
+
+### Division of labor
+The LLMSE approach will be implemented and demonstrated by Feiyu Wang.
+The EDI and HDI methods will be implemented and demonstrated by Steven Hastings.
+
+### Credits
+Prof. Konrad, Prof. Dubois
