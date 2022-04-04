@@ -12,8 +12,8 @@ In homogeneity-directed interpolation, two separate images are produced by inter
 The LMMSE method estimates of a missing primary color sample in both horizontal and vertical directions then combines the two to reconstruct the channels, we can use any interpolation method to interpolate the missing green samples at red and blue pixel (in this case we used second-order Laplacian interpolation filter), then interpolate the missing red and blue samples at green samples, for details, please check [LMMSE description](https://github.com/tcswp/debayer/blob/main/docs/LMMSE.pdf)
 
 ### Division of labor
-The LLMSE approach will be implemented and demonstrated by Feiyu Wang.
+The LMMSE approach will be implemented and demonstrated by Feiyu Wang.
 The EDI and HDI methods will be implemented and demonstrated by Steven Hastings.
 
-### Credits
-Prof. Konrad, Prof. Dubois
+
+Special thanks to Prof. Konrad and Prof. Dubois
