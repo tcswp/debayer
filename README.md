@@ -9,11 +9,13 @@ The edge-directed method we will use first interpolates each of the missing gree
 
 In homogeneity-directed interpolation, two separate images are produced by interpolating along either direction, i.e., horizontally and vertically. Each image is converted to a perceptually uniform color space such as CIELAB. Within this space, the pixels at each location in both copies are compared with their neighbors. A decision is then made to determine which of the two has greater local homogeneity.
 
-The linear minimum mean square error method is based on directional filtering...
+The LMMSE method estimates of a missing primary color sample in both horizontal and vertical directions then combines the two to reconstruct the channels, we can use any interpolation method to interpolate the missing green samples at red and blue pixel (in this case we used second-order Laplacian interpolation filter), then interpolate the missing red and blue samples at green samples, for details, please check [LMMSE description](https://github.com/tcswp/debayer/blob/main/docs/LMMSE.pdf)
+
+We have tested the impact of the low pass filter we chose for nosice reduction, for our early experimental results of LMMSE, please check [LMMSE results](https://github.com/tcswp/debayer/blob/main/docs/LMMSE_results.pdf)
 
 ### Division of labor
-The LLMSE approach will be implemented and demonstrated by Feiyu Wang.
+The LMMSE approach will be implemented and demonstrated by Feiyu Wang.
 The EDI and HDI methods will be implemented and demonstrated by Steven Hastings.
 
-### Credits
-Prof. Konrad, Prof. Dubois
+
+Special thanks to Prof. Konrad and Prof. Dubois
