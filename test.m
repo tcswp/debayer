@@ -1,9 +1,10 @@
-I = imread('test_images/lighthouse.tiff');
+I = imread('test_images/woman.tiff');
 [v,h,b] = size(I);
 B = bayer(I,v,h);
 figure(1)
 imshow(B)
-title('Lighthouse downsampled to Bayer CFA')
+title('Woman downsampled to Bayer CFA')
+imwrite(B,'woman_mosaic.tiff');
 
 %{
 figure(2)
