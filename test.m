@@ -1,14 +1,17 @@
-I = imread('test_images/woman.tiff');
+I = imread('test_images/lighthouse.tiff');
+
+subplot(1,3,1)
+imshow(I)
+title('Original')
+
 [v,h,b] = size(I);
 B = bayer(I,v,h);
-figure(1)
+subplot(1,3,2)
 imshow(B)
-title('Woman downsampled to Bayer CFA')
-imwrite(B,'woman_mosaic.tiff');
+title('Bayer CFA')
 
-%{
-figure(2)
 D = edi(B,v,h);
+subplot(1,3,3)
 imshow(D)
-title('Adaptive edge-directed interpolation')
-%}
+title('Edge-directed interpolation')
+
