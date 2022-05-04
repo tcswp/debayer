@@ -8,7 +8,7 @@ function D = edi(B,v,h)
       
       k = j + mod(i,2);
       
-      dh = abs(B(i,j-1,2)-B(i,k+1,2));
+      dh = abs(B(i,k-1,2)-B(i,k+1,2));
       dv = abs(B(i-1,k,2)-B(i+1,k,2));
       
       if (dh > dv)
