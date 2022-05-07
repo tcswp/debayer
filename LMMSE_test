@@ -1,0 +1,54 @@
+images = dir("photo_cd\IMG0004.tif");
+
+i = 1;
+for image = images'
+    I = imread("photo_cd/"+image.name);
+    
+    [v,h,b] = size(I);
+    %prefI = bayer_pref(I,v,h);
+    prefI= I;
+    B = bayer(prefI,v,h);
+    
+    tic
+    L = bi(B); 
+    toc
+    tic
+    D = edi(B,v,h);
+    toc
+    tic
+    LMMSE =dlmmse(prefI);
+    toc
+
+    %crop borders
+    m = 5;
+    I = I(m:v-m,m:h-m,:);
+    L = L(m:v-m,m:h-m,:);
+    D = D(m:v-m,m:h-m,:);
+    LMMSE = LMMSE(m:v-m,m:h-m,:);
+    
+    bi_mse = immse(L,I);
+    bi_psnr = psnr(L,I);
+    edi_mse = immse(D,I);
+    edi_psnr = psnr(D,I);
+    dl_mse = immse(LMMSE,I);
+    dl_psnr = psnr(LMMSE,I);
+    figure(i)
+    i = i+1;
+
+    subplot(1,4,1)
+    imshow(I)
+    title("Original")
+
+    subplot(1,4,2)
+    imshow(L)
+    title("Bilinear MSE="+bi_mse+", PSNR="+bi_psnr)
+
+    subplot(1,4,3)
+    imshow(D)
+    title("GEDI+CHI MSE="+edi_mse+", PSNR="+edi_psnr)
+
+    
+    subplot(1,4,4)
+    imshow(LMMSE)
+    title("DLMMSE MSE="+dl_mse+", PSNR="+dl_psnr)
+end
